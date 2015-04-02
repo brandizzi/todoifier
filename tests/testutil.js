@@ -57,7 +57,7 @@ var displayTestRunner = function displayTestRunner(testRunner) {
     );
     p.appendChild(fails);
 
-    if (testRunner.errors) {
+    if (testRunner.failCount > 0) {
         var errors = document.createElement('p');
         errors.appendChild(
             document.createTextNode('Errors: ' + testRunner.passCount)

@@ -6,7 +6,8 @@ var Todoifier = function Todoifier(config) {
         taskExtractor: function() {
             return {};
         },
-        sourceElement: document
+        sourceElement: document,
+        template: ''
     };
 
     for (var k in config) {
@@ -20,3 +21,19 @@ var Todoifier = function Todoifier(config) {
         this.tasks.push(this.config.taskExtractor(row));
     }
 };
+
+Todoifier.prototype.getTaskNodes = function() {
+    var nodes = [];
+    for (var i = 0; i < this.tasks.length; i++) {
+        var task = this.tasks[i];
+        var src = this.config.template;
+        for (var k in task) {
+            src = src.replace('{'+k+'}', task[k]);
+        }
+        var div = document.createElement('div');
+        div.setAttribute('class', 'todoifier-task');
+        div.innerHTML = src;
+        nodes.push(div);
+    }
+    return nodes;
+}

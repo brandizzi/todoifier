@@ -79,6 +79,7 @@ var displayTestRunner = function displayTestRunner(testRunner) {
         }
 
         errors.appendChild(errorsList);
+        errors.setAttribute('class', 'error');
         p.appendChild(errors);
     }
 

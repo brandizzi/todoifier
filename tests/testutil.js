@@ -42,6 +42,49 @@ TestRunner.prototype = {
     }
 };
 
+var displayTestRunner = function displayTestRunner(testRunner) {
+    var p = document.createElement('div');
+
+    var passes = document.createElement('p');
+    passes.appendChild(
+        document.createTextNode('Passes: ' + testRunner.passCount)
+    );
+    p.appendChild(passes);
+
+    var fails = document.createElement('p');
+    fails.appendChild(
+        document.createTextNode('Fails: ' + testRunner.failCount)
+    );
+    p.appendChild(fails);
+
+    if (testRunner.errors) {
+        var errors = document.createElement('p');
+        errors.appendChild(
+            document.createTextNode('Errors: ' + testRunner.passCount)
+        );
+
+        var errorsList = document.createElement('ul');
+
+        for (var k in testRunner.errors) {
+            var error = testRunner.errors[k];
+            var errorItem = document.createElement('li');
+
+            errorItem.appendChild(
+                document.createTextNode(
+                    'Message: ' + error.message + ' (line '
+                    + error.lineNumber + ')'
+                )
+            );
+            errorsList.appendChild(errorItem);
+        }
+
+        errors.appendChild(errorsList);
+        p.appendChild(errors);
+    }
+
+    return p;
+}
+
 
 var assertsTest = {
 

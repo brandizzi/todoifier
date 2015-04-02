@@ -71,8 +71,7 @@ var displayTestRunner = function displayTestRunner(testRunner) {
 
             errorItem.appendChild(
                 document.createTextNode(
-                    'Message: ' + error.message + ' (line '
-                    + error.lineNumber + ')'
+                    'Message: ' + error.message + ' (stack ' + error.stack + ')'
                 )
             );
             errorsList.appendChild(errorItem);

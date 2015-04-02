@@ -60,3 +60,70 @@ var assertsTest = {
     },
 
 };
+
+var testRunnerTest = {
+
+    testCountPasses: function() {
+        var runner = new TestRunner({
+            testPass: function() { assert(true) }
+        });
+        runner.run();
+
+        assert(runner.passCount === 1);
+        assert(runner.failCount === 0);
+    },
+
+    testCountFails: function() {
+        var runner = new TestRunner({
+            testFail: function() { assert(false) }
+        });
+        runner.run();
+
+        assert(runner.passCount === 0);
+        assert(runner.failCount === 1);
+    },
+
+    testCountPassesAndFails: function() {
+        var runner = new TestRunner({
+            testPass: function() { assert(true) },
+            testFail: function() { assert(false) }
+        });
+        runner.run();
+
+        assert(runner.passCount === 1);
+        assert(runner.failCount === 1);
+    },
+
+    testSaveDefaultMessage: function() {
+        var runner = new TestRunner({
+            testDefaultMessage: function() { assert(false) }
+        });
+        runner.run();
+
+        assert(
+            runner.errors['testDefaultMessage'].message === DEFAULT_MESSAGE,
+            'Does not show default message'
+        );
+    },
+
+    testSaveCustomtMessage: function() {
+        var runner = new TestRunner({
+            testCustomMessage: function() { assert(false, 'Custom message') }
+        });
+        runner.run();
+
+        assert(
+            runner.errors['testCustomMessage'].message === 'Custom message',
+            'Does not show custom message'
+        );
+    },
+
+    testReturnSelf: function() {
+        var runner = new TestRunner({
+            testPass: function() { assert(true) }
+        });
+        var r = runner.run();
+
+        assert(r === runner);
+    },
+}

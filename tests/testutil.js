@@ -169,4 +169,24 @@ var testRunnerTest = {
 
         assert(r === runner);
     },
+};
+
+var testDisplayTestRunner = {
+    testNoFailImpliesNoError: function() {
+        var runner = new TestRunner({
+            testPass: function() { assert(true) }
+        }).run();
+
+        var node = displayTestRunner(runner);
+        assert(node.getElementsByClassName('error').length === 0);
+    },
+
+    testFailImpliesError: function() {
+        var runner = new TestRunner({
+            testFail: function() { assert(fail) }
+        }).run();
+
+        var node = displayTestRunner(runner);
+        assert(node.getElementsByClassName('error').length === 1);
+    }
 }

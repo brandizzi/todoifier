@@ -37,6 +37,43 @@ var tests = {
         task = todoifier.tasks[2];
         assert(task.description === 'Make test pass');
         assert(task.assignedTo === 'Eve');
+    },
+
+    testTaskNodes: function() {
+        var todoifier = new Todoifier({
+            sourceElement: document.getElementById('content'),
+            rowExtractor: function(src) {
+                return src.getElementsByTagName('tr');
+            },
+            taskExtractor: function(rowNode) {
+                var tds = rowNode.getElementsByTagName('td');
+                return {
+                    description: tds.item(1).innerHTML,
+                    assignedTo: tds.item(2).innerHTML
+                };
+            },
+            template: '<span class="d">{description}</span>'
+                + '<span class="aT">{assignedTo}</span>'
+        });
+
+        var taskNodes = todoifier.getTaskNodes();
+        var taskNode = taskNodes[0];
+        var descriptionNode = taskNode.getElementsByClassName('d').item(0);
+        var assignedToNode = taskNode.getElementsByClassName('aT').item(0);
+        assert(descriptionNode.innerHTML == 'Write test document');
+        assert(assignedToNode.innerHTML === 'Alice');
+
+        taskNode = taskNodes[1];
+        descriptionNode = taskNode.getElementsByClassName('d').item(0);
+        assignedToNode = taskNode.getElementsByClassName('aT').item(0);
+        assert(descriptionNode.innerHTML == 'Write test case');
+        assert(assignedToNode.innerHTML === 'Bob');
+
+        taskNode = taskNodes[2];
+        descriptionNode = taskNode.getElementsByClassName('d').item(0);
+        assignedToNode = taskNode.getElementsByClassName('aT').item(0);
+        assert(descriptionNode.innerHTML == 'Make test pass');
+        assert(assignedToNode.innerHTML === 'Eve');
     }
 
 };

@@ -41,3 +41,22 @@ TestRunner.prototype = {
         return this;
     }
 };
+
+
+var assertsTest = {
+
+    testAssertPass: function() {
+        assert(true);
+    },
+
+    testAssertFail: function() {
+        try {
+            assert(false);
+            throw Error('failed');
+        } catch (e) {
+            return;
+        };
+        throw Error('failed');
+    },
+
+};
